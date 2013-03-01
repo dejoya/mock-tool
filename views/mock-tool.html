@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="MockApp">
+<head>
+	<title>Mock Drafting!</title>
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+	
+	<div id="my-team" ng-controller="MyTeamCtrl">
+		<h3>My Team</h3>
+
+		<ul class="lineup">
+			<li ng-repeat="position in team.roster">
+				<span class="position">{{ position.position }}</span>
+				<span class="player">{{ position.player.name }}</span>
+			</li>
+		</ul>
+	</div>
+
+	<div id="available-players" ng-controller="PlayerPoolCtrl">
+		<h2>Available Players</h2>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Player</th>
+					<th>Rank</th>
+					<th>Pos.</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="player in playerPool | filter:isAvailable">
+					<td>
+						<span class="button" ng-click="selectPlayer(player)">Draft</span>
+					</td>
+					<td>{{ player.name }}</td>
+					<td>{{ player.rank }}</td>
+					<td>{{ player.position | uppercase }}</td>
+					<td>
+						<span class="button" ng-click="removePlayer(player)">X</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="js/angular.min.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/mock.js"></script>
+</body>
+</html>

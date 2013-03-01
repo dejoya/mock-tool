@@ -1,0 +1,42 @@
+@import "compass/reset";
+@import "compass/css3";
+
+body {
+	font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 { 
+	font-size: 36px;
+}
+
+h3 {
+	font-size: 24px;
+}
+
+h4 {
+	font-size: 16px;
+}
+
+#my-team {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+}
+
+#available-players {
+	th {
+		font-weight: bold;
+	}
+
+	td, th {
+		padding: 10px;
+	}
+
+	.button {
+		cursor: pointer;
+	}
+}

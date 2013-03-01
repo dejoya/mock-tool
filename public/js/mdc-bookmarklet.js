@@ -1,0 +1,1 @@
+JSON.stringify(Array.prototype.slice.call(document.querySelectorAll('.contentrow')).map(function(item, i){ var cells = item.querySelectorAll('td'); var name = cells[1].innerHTML; var adp = cells[4].innerHTML; return { name: name, adp: adp }}))
