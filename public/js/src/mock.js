@@ -21,7 +21,7 @@
 	function PlayerPoolCtrl($scope, $http, playerSelectionSvc){
 		$scope.playerPool = [];
 
-		$http.get('/js/razzball.js').success(function(data){
+		$http.get('/js/data/razzball.js').success(function(data){
 			// curate the data a bit
 			$scope.playerPool = data.map(function(player){
 				player.available = true;
