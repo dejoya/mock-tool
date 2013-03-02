@@ -26,6 +26,21 @@
 			$scope.playerPool = data.map(function(player){
 				player.available = true;
 				player.position = player.position.toLowerCase();
+
+				// make sure number fields are numbers here so we don't 
+				// have to worry about it elsewhere
+				player.rank = +player.rank;
+				player.runs = +player.runs;
+				player.hrs = +player.hrs;
+				player.rbi = +player.rbi;
+				player.steals = +player.steals;
+				player.avg = +player.avg;
+				player.wins = +player.wins;
+				player.ks = +player.ks;
+				player.era = +player.era;
+				player.whip = +player.whip;
+				player.saves = +player.saves;
+
 				return player
 			});
 
@@ -37,7 +52,6 @@
 
 		$scope.selectPlayer = function(player){
 			playerSelectionSvc.tryAddPlayer(player);
-			// player.available = false;
 		};
 
 		$scope.$on('evtPlayerAdded', function(e, player){
@@ -45,7 +59,6 @@
 		});
 
 		$scope.removePlayer = function(player){
-			console.log(player)
 			player.available = false;
 		};
 	};
@@ -58,13 +71,10 @@
 
 
 		$scope.$on('evtTryAddPlayer', function(e, player){
-			console.log('try add');
-
+			
 			if ($scope.team.tryAddPlayer(player)){
 				playerSelectionSvc.playerAdded(player);
 			}
-			
-
 			
 		});
 	};
@@ -85,6 +95,9 @@
 							})
 						);
 
+
+		this.resetStats();
+
 	};
 
 	Team.prototype = {
@@ -101,11 +114,69 @@
 				if (position !== undefined){
 					position.player = player;
 					success = true;
+					this.refreshStats();
+
 					break;
 				}
 			}
 
 			return success;
+		}
+
+		, refreshStats: function(){
+			var pitcherSlots = 'sp rp p'.split(' ');
+			var hitterCount = 0;
+			var pitcherCount = 0;
+
+			this.resetStats();
+
+			this.roster.forEach(function(slot){
+				// not counting bench stats for now
+				if (!slot.player || slot.position == 'bench') return;
+
+				// pitchers
+				if (pitcherSlots.indexOf(slot.position) > -1){
+					pitcherCount++;
+
+					// TODO: figure out how RP/SP IP should affect ratios (eg 70/180 or something)
+					this.stats.wins += slot.player.wins;
+					this.stats.ks += slot.player.ks;
+					this.stats.saves += slot.player.saves;
+					this.stats.era += slot.player.era;
+					this.stats.whip += slot.player.whip;
+
+				}
+				// hitters
+				else {
+					hitterCount++;
+
+					this.stats.runs += slot.player.runs;
+					this.stats.hrs += slot.player.hrs;
+					this.stats.rbi += slot.player.rbi;
+					this.stats.steals += slot.player.steals;
+					this.stats.avg += slot.player.avg;
+				}
+
+			}, this);
+
+			this.stats.era /= pitcherCount;
+			this.stats.whip /= pitcherCount;
+			this.stats.avg /= hitterCount;
+		}
+
+		, resetStats: function(){
+			this.stats = {
+				runs: 0
+				, hrs: 0
+				, rbi: 0
+				, steals: 0
+				, avg: 0
+				, wins: 0
+				, ks: 0
+				, era: 0
+				, whip: 0
+				, saves: 0
+			};
 		}
 	}
 

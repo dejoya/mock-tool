@@ -15,6 +15,17 @@
 				<span class="player">{{ position.player.name }}</span>
 			</li>
 		</ul>
+
+		<div class="stats">
+			<div class="hitting">
+				<p>Runs / Hrs / Rbi / Steals / Avg</p>
+				<p>{{ team.stats.runs }} / {{ team.stats.hrs }} / {{ team.stats.rbi }} / {{ team.stats.steals }} / {{ team.stats.avg | number:3 }}</p>
+			</div>
+			<div class="pitching">
+				<p>Wins / Ks / Era / Whip / Saves</p>
+				<p>{{ team.stats.wins }} / {{ team.stats.ks }} / {{ team.stats.era | number:2 }} / {{ team.stats.whip | number: 2 }} / {{ team.stats.saves }}</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="available-players" ng-controller="PlayerPoolCtrl">

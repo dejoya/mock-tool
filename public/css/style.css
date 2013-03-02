@@ -94,16 +94,25 @@ h4 {
   top: 20px;
   right: 20px;
 }
+/* line 30, ../scss/style.scss */
+#my-team .lineup li {
+  padding: 0px 0;
+}
+/* line 33, ../scss/style.scss */
+#my-team .lineup li span {
+  display: inline-block;
+  min-width: 30px;
+}
 
-/* line 31, ../scss/style.scss */
+/* line 43, ../scss/style.scss */
 #available-players th {
   font-weight: bold;
 }
-/* line 35, ../scss/style.scss */
+/* line 47, ../scss/style.scss */
 #available-players td, #available-players th {
   padding: 10px;
 }
-/* line 39, ../scss/style.scss */
+/* line 51, ../scss/style.scss */
 #available-players .button {
   cursor: pointer;
 }
